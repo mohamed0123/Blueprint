@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="drag.and.drop.css" />
+
+	<title>Employee View</title>
+	<style type="text/css">
+.tableUpdated {
+	width: 90% !important;
+	margin: 17px 58px 0 !important;
+}
+
+.btnSpace {
+	margin: 17px;
+}
+</style>
+
+	<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: left !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+
+<style>
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li
+
+ 
+a
+
+
+ 
+:hover
+
+
+ 
+:not
+
+
+ 
+(
+.active
+
+ 
+)
+{
+background-color
+
+ 
+#111
+
+ 
+;
+}
+.active {
+	background-color: #4CAF50;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+</style>
+
+</h:head>
+<h:body>
+<p:inputText rendered="false" />
+<ul id="ulCategory">
+		<li><a id="home" href="/SewingLastISA/faces/MainPage.xhtml"
+			class="anchorGroup">Home</a></li>
+		<li><a href="/SewingLastISA/faces/employee/employeesList.xhtml"
+			class="anchorGroup active">Employee View</a></li>
+
+		<li><a href="/SewingLastISA/faces/machine/machinesList.xhtml"
+			class="anchorGroup">Machine View</a></li>
+		<li><a href="/SewingLastISA/faces/stages/stagesList.xhtml"
+			class="anchorGroup">Stages</a></li>
+
+<li><a href="/SewingLastISA/faces/stages/stagesModel.xhtml"
+			class="anchorGroup">Stages Model</a></li>	
+	</ul>
+
+	<p:growl id="msgs" sticky="true" />
+	<center>
+		<h2>
+			<h:outputText value="Employee Records" />
+		</h2>
+	</center>
+	<p:dialog id="myDialog" header="Stage Records" widgetVar="dlg2"
+		modal="true" width="60%">
+	<h:form id="createMachineForm" class="form-horizontal">
+		<div class="form-group">
+			<div class="col-sm-4"></div>
+
+		</div>
+		<hr />
+		<div class="form-group" style="display: none;">
+			<h:outputLabel for="employee-id" class="control-label col-sm-4">Id:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="employee-id" minlength="1"
+					value="#{employeeBean.id}" required="true">
+ 				</h:inputText>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<h:outputLabel for="employee-name" class="control-label col-sm-4">Employee Name:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="employee-name" minlength="1"
+					value="#{employeeBean.name}" required="true"
+					requiredMessage="Employee name is required" class="form-control"
+					validatorMessage="Employee name is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<h:outputLabel for="gender-id" class="control-label col-sm-4">Gender:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:selectOneRadio required="true" id="gender-id"
+					requiredMessage="Gender is required" value="#{employeeBean.gender}"
+					validatorMessage="Gender is required">
+					<f:selectItem itemValue="M" itemLabel="Male" />
+					<f:selectItem itemValue="F" itemLabel="Female" />
+					<f:validateRequired />
+				</h:selectOneRadio>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Employee Email:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="employee-email" value="#{employeeBean.email}"
+					required="true" requiredMessage="Employee email is required"
+					class="form-control" validatorMessage="Invalid email is formate">
+					 
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Employee Address:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputTextarea id="employee-address"
+					value="#{employeeBean.address}" required="true"
+					requiredMessage="Employee address is required" class="form-control"
+					validatorMessage="Employee address is required">
+					<f:validateRequired />
+				</h:inputTextarea>
+			</div>
+		</div>
+
+
+
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Employee Effeciency %:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="employee-effeciency"
+					onkeypress="return isNumberKey(event)"
+					value="#{employeeBean.effeciency}" required="true"
+					requiredMessage="Employee effeciency is required"
+					class="form-control"
+					validatorMessage="Value must be in range 0-100">
+					<f:validateDoubleRange minimum="0.0" maximum="100.0" />
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Years Of Experiance:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="employee-yearsOfExperiance"
+					onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+					value="#{employeeBean.yearsOfExperiance}" required="true"
+					requiredMessage="Employee years Of Experiance is required"
+					class="form-control"
+					validatorMessage="Employee years Of Experiance is required">
+					<f:validateRequired pattern="[0-9]" />
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Employee salary:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="employee-salary"
+					onkeypress="return isNumberKey(event)"
+					value="#{employeeBean.salary}" required="true"
+					requiredMessage="Employee salary is required" class="form-control"
+					validatorMessage="Only Decimal Numbers">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Employee title:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="employee-title" value="#{employeeBean.title}"
+					required="true" requiredMessage="Employee title is required"
+					class="form-control" validatorMessage="Employee title is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Employee contact Detailes:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="employee-contact_detailes"
+					value="#{employeeBean.contactDetailes}" required="true"
+					requiredMessage="Employee Contact Detailes is required"
+					class="form-control"
+					validatorMessage="Employee  Contact Detailes is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+
+		<div class="form-group">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div class="col-sm-2">
+			 
+						
+								<p:commandButton value="Save" update="msgs createMachineForm form"
+					action="#{employeeBean.saveDetails(employeeBean)}"
+					class="btn btn-success" >
+					 <!-- <f:ajax execute="@form" render="form myForm1 myForm2"></f:ajax> -->
+					</p:commandButton>
+				</div>
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2">
+					<h:commandButton value="Reset" type="reset"
+						class="btn btn-warning" />
+				</div>
+
+			</div>
+		</div>
+	</h:form>
+</p:dialog>
+	<h:form id="form">
+						<h:commandButton id="test" action="#{employeeBean.download()}"
+				styleClass="iconXlsx"  >
+			</h:commandButton>
+ <br />
+ 
+		<h:dataTable id="employeeTable" binding="#{table}"
+			value="#{employeeBean.listFromDB}"
+			filteredValue="#{employeeBean.listFromDB}"
+			emptyMessage="No employee found with given criteria"
+			widgetVar="myVarTable" var="myVar"
+			class="table table-striped table-hover table-bordered tableUpdated">
+
+			<!--    <f:facet name="header">
+            <h:outputPanel>
+                <h:outputText value="" />
+                <h:inputText id="globalFilter" onkeyup="PF('myVarTable').filter()" style="width:250px" placeholder="Enter keyword"/>
+            </h:outputPanel>
+        </f:facet>
+        -->
+			<h:column filterMatchMode="contains">
+
+
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{table.rowIndex + 1}" />
+			</h:column>
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Employee Name</f:facet>
+				<h:outputText value="#{myVar.name}" />
+			</h:column>
+
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Gender</f:facet>
+				<h:outputText value="#{myVar.gender}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Employee Email</f:facet>
+				<h:outputText value="#{myVar.email}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Employee Address</f:facet>
+				<h:outputText value="#{myVar.address}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Employee Effeciency</f:facet>
+				<h:outputText value="#{myVar.effeciency} %" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Years Of Experience</f:facet>
+				<h:outputText value="#{myVar.yearsOfExperiance}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Salary</f:facet>
+				<h:outputText value="#{myVar.salary}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Title</f:facet>
+				<h:outputText value="#{myVar.title}" />
+			</h:column>
+
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Contact Detailes</f:facet>
+				<h:outputText value="#{myVar.contactDetailes}" />
+			</h:column>
+
+
+
+
+
+
+
+
+
+			<h:column>
+				<f:facet name="header">Update</f:facet>
+				<h:commandButton action="#{employeeBean.editRecord(myVar.id)}"
+					value="Update" class="btn btn-primary" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandButton action="#{employeeBean.deleteRecord(myVar.id)}"
+					update="form" value="Delete" class="btn btn-danger" />
+			</h:column>
+
+			<!--  		<h:column filterMatchMode="contains">
+			
+			<button class="btn btn-danger" data-toggle="confirmation" data-singleton="true">Confirmation</button>
+			 
+			</h:column>
+			-->
+
+		</h:dataTable>
+		<br />
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<h:commandButton value="Add New Item"
+				action="#{employeeBean.addRecord()}" class="btn btn-success btn-block" >
+				<f:ajax />
+				<!-- <f:ajax execute="@form" render="myDialog" /> -->
+				</h:commandButton>
+		</div>
+	 
+	</h:form>
+
+
+</h:body>
+
+<script>
+//<![CDATA[
+       function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+   	//]]>
+    </script>
+            <script>
+//<![CDATA[
+     async  function closeDialog( )
+       {
+ 
+    	   var dialog = document.getElementById('myDialog');
+    	   var closButtun = dialog.querySelectorAll('a[href="#"][role="button"]');
+    	   closButtun[0].click();
+       }
+   	//]]>
+    </script>
+
+</html>

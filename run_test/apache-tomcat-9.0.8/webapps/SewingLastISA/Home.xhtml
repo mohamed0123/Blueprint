@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+<h:head>
+
+<style>
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li
+
+ 
+a
+
+
+ 
+:hover
+
+
+ 
+:not
+
+
+ 
+(
+.active
+
+ 
+)
+{
+background-color
+
+ 
+#111
+
+ 
+;
+}
+.active {
+	background-color: #4CAF50;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+</style>
+
+
+</h:head>
+<h:body>
+<f:metadata>
+	<f:metadata>
+		<f:viewParam name="pageId" value="#{homeBean.pageId}" />
+	</f:metadata>
+</f:metadata>
+	<ul id="ulCategory">
+		<li><a id="home" href="/SewingLastISA/faces/MainPage.xhtml"
+			class="anchorGroup">Home</a></li>
+		<li><a href="/SewingLastISA/faces/employee/employeesList.xhtml"
+			class="anchorGroup">Employee View</a></li>
+	
+		<li><a href="/SewingLastISA/faces/machine/machinesList.xhtml"
+			class="anchorGroup">Machine View</a></li>
+		<li><a href="/SewingLastISA/faces/stages/stagesList.xhtml"
+			class="anchorGroup">Stages</a></li>
+	
+
+	</ul>
+
+
+</h:body>
+
+
+<script>
+	//<![CDATA[
+	function setPageActive(pageId) {
+		document.getElementById(pageId).setAttribute("class", "active");
+		alert(pageId);
+	}
+	//]]>
+</script>
+
+</html>

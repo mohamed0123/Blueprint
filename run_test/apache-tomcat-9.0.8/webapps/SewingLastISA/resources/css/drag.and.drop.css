@@ -1,0 +1,99 @@
+/* body {
+  margin: 40px;
+} */
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 240px auto;
+ /*  grid-gap: 10px; */
+  background-color: #fff;
+  color: #444;
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 150%;
+  height: 200px;
+}
+
+.task {
+  background-color: pink;
+  color: black;
+  padding: 3px;
+  margin: 4px;
+  border-radius: 5px;
+}
+
+.imgCircular{
+	border-radius: 30px;
+}
+
+.dropBox {
+  /* display: grid; */
+  grid-template-columns: 200px;
+  /* grid-template-rows: 80px; */
+  /*   grid-gap: 5px; */  
+  background-color: #444; 
+  color: #fff;
+  border-radius: 5px;
+  /* padding: 20px; */
+ /*  font-size: 10%; */
+  /* height: 90vh; */
+  height: 40px;
+  width: 240px;
+}
+
+.dropWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr  ;
+  grid-gap: 3px;   
+  background-color: #fff;
+  color: #444;
+}
+
+.icon a
+{
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+.iconSew0
+{
+    background-image: url(../resources/images/pic1.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    float: right;
+    
+    	background-position: center;
+     background-size: cover;
+     background-color: transparent;
+  }
+ 
+ .center {
+  margin: auto;
+  width: 100%;
+ 
+}
+
+.iconXlsx
+{
+    background-image: url(../resources/images/excel.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    float: left;
+    margin-left: 60px;
+    	background-position: center;
+     background-size: cover;
+     background-color: transparent;
+  }

@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+ 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  	>
+
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <title>Machine Edit View</title>
+    <style type="text/css">
+        .updateBtnStyle {
+        	width: 80px !important;        	
+        }
+    </style>
+</h:head>
+<h:body><h:panelGroup id="includedContent4" style="display:block"></h:panelGroup>
+<p:growl id="msgs" sticky="true"  />
+        <h:form id="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <h2 style="text-align: center" class="col-sm-4">Edit Machine Record</h2>
+            </div>
+            <hr/>
+            
+              <div class="form-group">
+            <h:outputLabel for="employee-name" class="control-label col-sm-4" >Employee Name:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="employee-name" minlength="1" value="#{editEmployeeRecordObj.name}" required="true"  requiredMessage="Employee name is required"	 class="form-control" validatorMessage="Employee name is required">
+                    <f:validateRequired   />
+                </h:inputText>
+            </div>
+        </div>
+        
+        
+            <div class="form-group">
+            <h:outputLabel for="gender-id" class="control-label col-sm-4">Gender:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:selectOneRadio  required="true" id="gender-id" requiredMessage="Gender is required" value="#{editEmployeeRecordObj.gender}" validatorMessage="Gender is required">
+                    <f:selectItem itemValue="M" itemLabel="Male" />
+                    <f:selectItem itemValue="F" itemLabel="Female" />
+                    <f:validateRequired/>
+                </h:selectOneRadio>
+            </div>
+        </div>
+        
+        
+          <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Employee Email:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="employee-email" value="#{editEmployeeRecordObj.email}" required="true"  requiredMessage="Employee email is required"	 class="form-control" validatorMessage="Invalid  email is formate">
+                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                </h:inputText>
+            </div>
+        </div>
+         
+         
+ 
+     <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Employee Address:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputTextarea id="employee-address" value="#{editEmployeeRecordObj.address}" required="true"  requiredMessage="Employee address is required"	 class="form-control" validatorMessage="Employee address is required">
+                    <f:validateRequired />
+                </h:inputTextarea>
+            </div>
+        </div>
+         
+         
+ 
+         
+         
+ 
+     <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Employee Effeciency %:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="employee-effeciency" onkeypress="return isNumberKey(event)" value="#{editEmployeeRecordObj.effeciency}" required="true"  requiredMessage="Employee effeciency is required"	 class="form-control" validatorMessage="Employee effeciency is required">
+                    <f:validateDoubleRange minimum="0.0" maximum="100.0" />
+                </h:inputText>
+            </div>
+        </div>
+         
+         
+ 
+     <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Years Of Experiance:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="employee-yearsOfExperiance" 
+                  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" 
+                  value="#{editEmployeeRecordObj.yearsOfExperiance}" required="true"  requiredMessage="Employee years Of Experiance is required"	 class="form-control" validatorMessage="Employee years Of Experiance is required">
+                    <f:validateRequired pattern="[0-9]"/>
+                </h:inputText>
+            </div>
+        </div>
+         
+         
+ 
+     <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Employee salary:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="employee-salary" 
+                  onkeypress="return isNumberKey(event)"
+                  value="#{editEmployeeRecordObj.salary}" required="true"  requiredMessage="Employee salary is required"	 class="form-control" validatorMessage="Employee salary is required">
+                    <f:validateRequired   />
+                </h:inputText>
+            </div>
+        </div>
+         
+         
+         
+     <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Employee title:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="employee-title" value="#{editEmployeeRecordObj.title}" required="true"  requiredMessage="Employee title is required"	 class="form-control" validatorMessage="Employee title is required">
+                    <f:validateRequired />
+                </h:inputText>
+            </div>
+        </div>
+         
+         
+     <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Employee contact Detailes:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="employee-contact_detailes" value="#{editEmployeeRecordObj.contactDetailes}" required="true"  requiredMessage="Employee Contact Detailes is required"	 class="form-control" validatorMessage="Employee  Contact Detailes is required">
+                    <f:validateRequired />
+                </h:inputText>
+            </div>
+        </div>
+         
+         
+  
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <h:commandButton value="Update" action="#{employeeBean.updateDetails(editEmployeeRecordObj)}" update="msg" class="btn btn-primary updateBtnStyle" />
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+    <script  >
+//<![CDATA[
+       function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+   	//]]>
+    </script>
+ 
+<script type="text/javascript">
+	//<![CDATA[
+	$(function() {
+		$("#includedContent4").load("/SewingLastISA/faces/Home.xhtml");
+	});
+	//]]>
+</script>
+    
+</html>

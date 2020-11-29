@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet library="css" name="drag.and.drop.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+
+
+	<style type="text/css">
+.Implementation .ui-panel {
+	margin-bottom: 20px;
+}
+
+.info {
+	position: fixed;
+	width: 10%;
+	height: 30px;
+	line-height: 30px;
+	margin-left: -10%; /* 
+  background:#5bc0de;
+  border-color:#46b8da;
+  color:#fff; */
+	bottom: 0px;
+	left: 100%;
+	text-align: center;
+	/* border: 2px dashed #f69c55; */
+}
+
+#span {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
+}
+</style>
+
+
+	<style>
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li
+
+
+
+
+a
+
+
+
+
+:hover
+
+
+
+
+:not
+
+
+
+
+(
+.active
+
+
+
+
+)
+{
+background-color
+
+
+
+
+#111
+
+
+
+
+;
+}
+.active {
+	background-color: #4CAF50;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+</style>
+
+</h:head>
+<h:body>
+
+	<!-- primefaces issue to allow scripting you must start with specific components ul is not one of them-->
+	<p:inputText rendered="false" />
+
+	<ul id="ulCategory">
+		<li><a id="home" href="/SewingLastISA/faces/MainPage.xhtml"
+			class="anchorGroup active">Home</a></li>
+		<li><a href="/SewingLastISA/faces/employee/employeesList.xhtml"
+			class="anchorGroup">Employee View</a></li>
+	
+		<li><a href="/SewingLastISA/faces/machine/machinesList.xhtml"
+			class="anchorGroup">Machine View</a></li>
+		<li><a href="/SewingLastISA/faces/stages/stagesList.xhtml"
+			class="anchorGroup">Stages</a></li>
+	
+
+	</ul>
+
+	<br />
+	<br />
+
+	<h:form id="mainForm">
+	<p:growl id="msg" sticky="true" />
+		<div class="form-group">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<h:inputText id="width" value="#{mainBean.width}" required="true"
+					a:placeholder="Hall width" title="Hall width"
+					binding="#{width_bean}" requiredMessage="width is required"
+					class="form-control" validatorMessage="width is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+			<br /> <br />
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<h:inputText id="height" value="#{mainBean.height}" required="true"
+					a:placeholder="Hall heigth" title="Hall heigth"
+					binding="#{heigth_bean}" requiredMessage="Height is required"
+					class="form-control" validatorMessage="Height is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+			<br /> <br />
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<p:autoComplete id="hallNameId" value="#{mainBean.hallName}" completeMethod="#{mainBean.compeleteMethode}"
+ 			required="true" a:placeholder="Hall name" title="Hall name"   binding="#{name_bean}" requiredMessage="hall name is required" inputStyle="width:425px" 
+					 validatorMessage="hall name is required">
+					 <p:ajax event="itemSelect" listener="#{mainBean.prepareAfterSelect(name_bean.value)}" update="msg" class="form-control" /> 
+				</p:autoComplete>
+			</div>
+		</div>
+		<br />
+		<br />
+		<br />
+		<div class="col-sm-4"></div>
+
+		<div class="col-sm-1">
+			<h:commandButton actionListener="#{mainBean.drawLayout}" id="drawLayOut"
+				class=" btn btn-success form-control" value="Layout" 
+				 />
+		</div>
+		<div class="col-sm-1">
+			<p:commandButton
+				actionListener="#{mainBean.saveHall(name_bean.value , width_bean.value , heigth_bean.value)}"
+				oncomplete="setAllDropedElementInSessionStorage();"
+				class=" btn btn-success form-control" value="Save" update="msg" />
+		</div>
+		
+		<div class="col-sm-1">
+			<p:commandButton
+				actionListener="#{mainBean.restoreView}"
+				 id="restoreViewId"
+				class=" btn btn-success form-control" value="Restore" update="msg" />
+		</div>
+
+	</h:form>
+
+
+	<br />
+	<br />
+	<br />
+
+	<!-- 	<button type="button" id="myBtn"
+		onclick="dynamicDimention(#{mainBean.width},#{mainBean.height})">Change
+		the width of this button</button>
+ -->
+	<!-- 
+	<div id="yyy" style="border: 1px solid black; height: 200px"></div>
+ -->
+
+
+
+
+
+	<!-- <canvas id="myCanvas" width="900" height="450"
+		style="border: 1px solid #d3d3d3;"></canvas>
+ -->
+
+	<h:form id="myForm00" style="display:none">
+		<p:inputText id="addOrRemove" binding="#{addOrRemove1}"></p:inputText>
+		<p:inputText id="srcId" binding="#{srcId123}"></p:inputText>
+		<p:inputText id="elementsToSave" value="#{mainBean.localDataToSave}"
+			binding="#{elementsToSaveP}"></p:inputText>
+		<p:commandButton id="onclickDive"
+			actionListener="#{mainBean.onClickDiv(  addOrRemove1.value  , srcId123.value  )}"></p:commandButton>
+
+		<p:commandButton id="prepareDataId"
+			actionListener="#{mainBean.loadDataInBean(  elementsToSaveP.value)}"></p:commandButton>
+
+	</h:form>
+
+	<hr />
+ 
+	<div class="wrapper">
+		<div class="box"
+			style="overflow-y: scroll; overflow-x: hidden; height: 200px;">
+			<h:panelGrid id="tasksPg" columns="1"
+				style="overflow-y: scroll; height:400px;">
+
+				<p:repeat value="#{mainBean.newList}" var="obj">
+					<div id="#{obj.id}" class="task" draggable="true">
+						#{obj.val}
+						<div class="icon iconSew0">
+							<a href="#"></a>
+						</div>
+					</div>
+				</p:repeat>
+
+			</h:panelGrid>
+		</div>
+
+
+
+		<div id="innerDive" style="border: 1px solid black;">
+			<p:repeat value="#{mainBean.newContainersList}" var="obj">
+				<!-- based on bootstrap columns you can define your no of columns  -->
+				<div id="#{obj.id}" class="dropBox col-sm-#{obj.val}"></div>
+			</p:repeat>
+
+		</div>
+
+	</div>
+ 
+	<form id="formResult">
+		<div class="alert-info info">
+			<span id="resultValue"></span>
+		</div>
+	</form>
+
+
+</h:body>
+<script>
+	//<![CDATA[
+	function setDragabbale(divId) {
+		alert('test')
+		document.getElementById(divId).setAttribute('draggable', 'false');
+
+	}
+	//]]>
+</script>
+
+<!-- <script>
+//<![CDATA[
+	function dynamicDimention(width , heigth) {
+ 
+		var c = document.getElementById("myCanvas");
+		var ctx = c.getContext("2d");
+		// ctx.rect(60, 20, 150, 100);
+		ctx.rect(60, 20, width, heigth);
+		ctx.stroke();
+	}
+	//]]>
+</script> -->
+<script>
+	//<![CDATA[
+	function updateResultLabel(value) {
+
+		document.getElementById('resultValue').innerHTML = value;
+
+	}
+	//]]>
+</script>
+<script type="text/javascript"
+	src="/SewingLastISA/faces/resources/js/drag.and.drop.js"></script>
+
+</html>

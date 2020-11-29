@@ -1,0 +1,633 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="datatables.min.css" />
+	<h:outputStylesheet library="css" name="drag.and.drop.css" />
+	<script type="text/javascript"
+		src="/SewingLastISA/faces/resources/js/datatables.min.js"></script>
+
+	<style type="text/css">
+.customFooter{
+background: #68BB59;
+ background-color:  #68BB59;
+height: 30px;
+position: relative;
+}
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left:40%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.tableUpdated {
+	width: 90% !important;
+	margin: 17px 58px 0 !important;
+}
+
+.btnSpace {
+	margin: 17px;
+}
+</style>
+
+	<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: left !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+
+	<style>
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+.ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #990a00;
+	/* width: 60%; */
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li
+
+
+
+ 
+
+
+a
+
+
+
+
+ 
+
+
+:hover
+
+
+
+
+ 
+
+
+:not
+
+
+
+
+ 
+
+
+ (.active ) {background-color #111;
+	
+}
+
+.active {
+	background-color: #4CAF50;
+}
+
+.active0 {
+	background-color: #264026;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+</style>
+
+
+
+
+	<title>Stage View</title>
+
+</h:head>
+<h:body>
+	<p:inputText rendered="false" />
+	<ul id="ulCategory">
+		<li><a id="home" href="/SewingLastISA/faces/MainPage.xhtml"
+			class="anchorGroup">Home</a></li>
+		<li><a href="/SewingLastISA/faces/employee/employeesList.xhtml"
+			class="anchorGroup ">Employee View</a></li>
+
+		<li><a href="/SewingLastISA/faces/machine/machinesList.xhtml"
+			class="anchorGroup">Machine View</a></li>
+		<li><a href="/SewingLastISA/faces/stages/stagesList.xhtml"
+			class="anchorGroup active">Stages</a></li>
+		
+	<li><a href="/SewingLastISA/faces/stages/stagesModel.xhtml"
+			class="anchorGroup">Stages Model</a></li>	
+			
+	</ul>
+
+	<h:form id="hiddenForm" style="display:none">
+		<h:inputText id="titleBean" binding="#{titleBean_bean}">
+
+		</h:inputText>
+		<h:inputText id="titleBeanId" binding="#{titleBean_bean_id}">
+
+		</h:inputText>		
+		
+		<h:commandButton id="changeBeanButton" value="hiddenUpdateView"
+			class="btn btn-warning btn-sm" action="#{stageBean.changeTitle(titleBean_bean.value , titleBean_bean_id.value)}">
+		</h:commandButton>
+	</h:form>
+	
+	<ul id="ulCategory2" class="ul">
+		<li><a id="innerTab0" href="javascript:onclickFunctionTitle('Asemble' , 'innerTab0')"
+		  class="anchorG2">التجميع</a></li>
+
+		<li><a id="innerTab1" href="javascript:onclickFunctionTitle('chest' , 'innerTab1')"
+			  class="anchorG2">الصدر</a></li>
+		<li><a id="innerTab2" href="javascript:onclickFunctionTitle('back' , 'innerTab2')"
+			  class="anchorG2">الظهر</a></li>
+			  
+			  
+			  
+				<li><a id="innerTab3" href="javascript:onclickFunctionTitle('kom' , 'innerTab3')"
+		  class="anchorG2">الكم</a></li>
+
+		<li><a id="innerTab4" href="javascript:onclickFunctionTitle('asawer' , 'innerTab4')"
+			  class="anchorG2">الاساور</a></li>
+		<li><a id="innerTab5" href="javascript:onclickFunctionTitle('ya2a' , 'innerTab5')"
+			  class="anchorG2">الياقة</a></li>
+		
+		<!-- <li><a id="innerTab6" href="javascript:onclickFunctionTitle('model' , 'innerTab6')" onclick="javascript:modelJs()"
+			  class="anchorG2">الموديل</a></li> -->
+			  	  
+	</ul>
+
+
+	<p:growl id="msgs" sticky="true" />
+	<center>
+		<h2>
+		<!-- 	<h:outputText value="#{stageBean.title}" /> -->
+			<h:graphicImage value="/resources/images/#{stageBean.title}.png" styleClass="imgCircular"/>
+		</h2>
+	</center>
+
+
+	<p:dialog id="myDialog" header="Stage Records" widgetVar="dlg2"
+		modal="true" width="60%">
+
+	 	<h:form id="myForm2">
+		<div class="form-group">
+			<h:panelGrid id="pg1" columns="2" cellpadding="5">
+				<h:dataTable value="#{stageBean.items}" var="item">
+					<h:column>
+ 						<h:selectOneMenu  value="#{item.id}"
+							class="form-control">
+							
+				    		
+				 	<f:selectItem   itemLabel="#{stageBean.emName.name}"
+						class="form-control" itemValue="#{stageBean.emName.id}" />  
+						
+							<f:selectItems value="#{stageBean.emListFromDB}" var="val"
+								class="form-control" itemLabel="#{val.name}"
+								itemValue="#{val.id}" />
+								 <f:ajax execute="@form"  />
+						</h:selectOneMenu>
+					</h:column>
+					<h:column>
+						<h:commandButton value="-" class="btn btn-warning btn-sm"
+							action="#{stageBean.remove(item)}" />
+					</h:column>
+					
+		
+				</h:dataTable>
+				<h:commandButton value="+" class="btn btn-primary btn-sm"
+					action="#{stageBean.add()}">
+					<f:ajax execute="@form" render="myForm2" />
+				</h:commandButton>
+			</h:panelGrid>
+		</div>
+ 
+	</h:form>
+		
+	 
+
+		<h:form id="myForm1">
+		
+		
+		
+	
+		
+		
+				<h:outputLabel for="stage-name" class="control-label">Stage Name:</h:outputLabel>
+
+			<h:inputText id="stage-name" value="#{stageBean.name}"
+				required="true" requiredMessage="Stage name is required"
+				class="form-control" validatorMessage="Stage name is required">
+				<f:validateRequired />
+			</h:inputText>
+
+			<h:outputLabel class="control-label col-sm-4">Time in Sec:</h:outputLabel>
+
+			<h:inputText id="stage-time_sec" value="#{stageBean.timeSec}"
+				onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+				required="true" requiredMessage="Time Sec is required"
+				class="form-control" validatorMessage="Stage Code is required">
+				<f:validateRequired />
+			</h:inputText>
+
+
+
+
+
+
+			<h:outputLabel class="control-label col-sm-4">Production 100:</h:outputLabel>
+
+			<h:inputText id="stage-production100"
+				value="#{stageBean.production100}" required="true"
+				onkeypress="return isNumberKey(event)"
+				requiredMessage="No. Of Stage is required" class="form-control"
+				validatorMessage="Only Decimal Numbers">
+				<f:validateRequired />
+			</h:inputText>
+
+
+
+			<h:outputLabel class="control-label col-sm-4">Production 80:</h:outputLabel>
+
+			<h:inputText id="stage-production80"
+				value="#{stageBean.production80}" required="true"
+				onkeypress="return isNumberKey(event)"
+				requiredMessage="No. Of Stage is required" class="form-control"
+				validatorMessage="Only Decimal Numbers">
+				<f:validateRequired />
+			</h:inputText>
+
+
+	<h:outputLabel class="control-label col-sm-4">Machine Count:</h:outputLabel>
+
+			<h:inputText id="stage-machineCount"
+				value="#{stageBean.mCout}" 
+				onkeypress="return isNumberKey(event)"
+				 class="form-control"
+				validatorMessage="Only Decimal Numbers">
+				<f:validateRequired />
+			</h:inputText>
+
+
+		<h:outputLabel class="control-label col-sm-4">Machine Name:</h:outputLabel>
+		 
+
+				<h:selectOneMenu id="machine-Name" value="#{stageBean.mId}"
+					class="form-control">
+
+					<f:selectItem itemLabel="#{stageBean.mName}"
+						class="form-control" itemValue="#{stageBean.id}" />
+
+					<f:selectItems value="#{stageBean.mListFromDB}" var="val"
+						class="form-control" itemLabel="#{val.name}" itemValue="#{val.id}" />
+
+				</h:selectOneMenu>
+
+
+		 
+
+ 
+
+
+			<h:outputLabel class="control-label col-sm-4">Price per item:</h:outputLabel>
+
+			<h:inputText id="stage-price-of-items"
+				value="#{stageBean.priceOfItem}" required="true"
+				onkeypress="return isNumberKey(event)"
+				requiredMessage="No. Of Stage is required" class="form-control"
+				validatorMessage="Only Decimal Numbers">
+				<f:validateRequired />
+			</h:inputText>
+
+<h:outputLabel class="control-label col-sm-4">Accessories :</h:outputLabel>
+
+			<h:inputText id="stage-accessories" value="#{stageBean.accessories}"
+				
+				class="form-control">
+
+			</h:inputText>
+
+
+			<h:outputLabel class="control-label col-sm-4">Notes :</h:outputLabel>
+
+			<h:inputText id="stage-notes" value="#{stageBean.notes}"
+				required="true" requiredMessage="Notes is required"
+				class="form-control">
+
+			</h:inputText>
+
+<br />
+			<div class="col-sm-1"></div>
+			<div class="col-sm-12">
+				<p:commandButton value="Save" update="msgs form myForm1 myForm2"
+					action="#{stageBean.saveDetails(stageBean)}"
+					class="btn btn-success   btn-block" >
+					 <!-- <f:ajax execute="@form" render="form myForm1 myForm2"></f:ajax> -->
+					</p:commandButton>
+					
+					
+			</div>
+
+
+
+			<!-- 		<div class="col-sm-1"></div>
+			<div class="col-sm-2">
+				<h:commandButton value="Reset" type="reset" class="btn btn-warning" />
+			</div> -->
+
+		</h:form>
+
+			
+
+	</p:dialog>
+	
+	
+	
+
+	
+	<h:form id="form">
+	
+  <div id="contentDiv">
+					<h:commandButton id="test" action="#{stageBean.download()}"
+				styleClass="iconXlsx"  >
+			</h:commandButton>
+ <br />
+		<h:dataTable id="machineTable" binding="#{table}"
+			value="#{stageBean.listFromDB}"
+			filteredValue="#{stageBean.listFromDB}"
+			emptyMessage="No stage found with given criteria"
+			widgetVar="myVarTable" var="myVar"
+			class="table table-striped table-hover table-bordered tableUpdated">
+
+			<h:column>
+
+
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{table.rowIndex + 1}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Stage Name</f:facet>
+				<h:outputText value="#{myVar.name}" />
+			</h:column>
+
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Time in Seconds</f:facet>
+				<h:outputText value="#{myVar.timeSec} Sec" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Production 100</f:facet>
+				<h:outputText value="#{myVar.production100}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Production 80</f:facet>
+				<h:outputText value="#{myVar.production80}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Machine Name</f:facet>
+				<h:outputText value="#{myVar.mName}" />
+			</h:column>
+
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Machine count</f:facet>
+				<h:outputText value="#{myVar.mCout}" />
+			</h:column>
+
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Employees Names</f:facet>
+				<h:outputText value="#{myVar.emNames}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Price of items</f:facet>
+				<h:outputText value="#{myVar.priceOfItem}" />
+			</h:column>
+
+
+<h:column filterMatchMode="contains">
+				<f:facet name="header">Accessories</f:facet>
+				<h:outputText value="#{myVar.accessories}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Notes</f:facet>
+				<h:outputText value="#{myVar.notes}" />
+			</h:column>
+
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Store Date</f:facet>
+				<h:outputText value="#{myVar.storeDate}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Update</f:facet>
+				<h:commandButton action="#{stageBean.editRecord(myVar.id)}"
+					value="Update" class="btn btn-primary" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandButton action="#{stageBean.deleteRecord(myVar.id)}"
+					value="Delete" class="btn btn-danger" />
+			</h:column>
+	 <div Class="customFooter">
+	 
+					  <f:facet name="footer">
+	<div Class="customFooter">
+		  <center>
+	<div class="vertical-center"> 
+			
+    <h:outputText style="font-weight: bold;font-family: serif;font-size: 15px;" value="In total there are : " />
+    <h:outputText style="font-weight: bold;font-family: Times New Roman;font-size: 17px;" value="#{stageBean.pro100Total } " />
+    <h:outputText style="font-weight: bold;font-family: serif;font-size: 15px;" value=" Effeciency" />
+    
+    </div>
+    </center>
+  </div>
+  </f:facet>
+  </div>
+
+		</h:dataTable>
+		<br />
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<h:commandButton value="Add New Item"
+				action="#{stageBean.addRecord()}" class="btn btn-success btn-block" >
+				<f:ajax />
+				<!-- <f:ajax execute="@form" render="myDialog" /> -->
+				</h:commandButton>
+		</div>
+		 </div>
+	</h:form>
+
+
+<div id="hiddenContent" style="display:none">
+<div id="newContent"></div>
+sdafsd
+
+</div>
+
+
+
+</h:body>
+
+<script>
+//<![CDATA[
+       function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+   	//]]>
+    </script>
+<script>
+//<![CDATA[
+      $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+   	//]]>
+    </script>
+<script>
+//<![CDATA[
+      $(function() {
+   $("li").click(function() {
+      // remove classes from all
+      $("li").removeClass("active0");
+      // add class to the one we clicked
+      $(this).addClass("active0");
+   });
+});
+   	//]]>
+    </script>
+    
+    
+    
+    <script>
+//<![CDATA[
+     async  function onclickFunctionTitle(title , id)
+       {
+    	   var inputHiden = document.getElementById('hiddenForm:titleBean');
+    	   inputHiden.setAttribute('value' , title);
+    	   
+    	   var inputHidenId = document.getElementById('hiddenForm:titleBeanId')
+    	   inputHidenId.setAttribute('value' , id);
+    	   
+    	   var myHiddenButtun = document.getElementById('hiddenForm:changeBeanButton')
+    	   await  myHiddenButtun.click();
+    	   setInterval(function(){ if(document.readyState == 'complete') { return ; } }, 50); 
+    	   console.log(id);
+    	  
+
+    	   var setActive = document.getElementById(id);
+    	   setActive.className += " , active0"
+       }
+   	//]]>
+    </script>
+    
+    
+    
+        
+    <script>
+//<![CDATA[
+     async  function modelJs()
+       {
+    	 
+     
+    	 var myNode = document.getElementById("contentDiv");
+    	 myNode.innerHTML = '';
+    	 
+    	 var newNode = document.getElementById("newContent");
+    	 
+    	 myNode.appendChild(newNode); 
+    	 
+    	 
+       }
+   	//]]>
+    </script>
+    
+    
+        <script>
+//<![CDATA[
+     async  function setActive( id)
+       {
+ 
+    	   var setActive = document.getElementById(id);
+    	   setActive.className += " , active0"
+       }
+   	//]]>
+    </script>
+    
+            <script>
+//<![CDATA[
+     async  function closeDialog( )
+       {
+ 
+    	   var dialog = document.getElementById('myDialog');
+    	   var closButtun = dialog.querySelectorAll('a[href="#"][role="button"]');
+    	   closButtun[0].click();
+       }
+   	//]]>
+    </script>
+    
+</html>

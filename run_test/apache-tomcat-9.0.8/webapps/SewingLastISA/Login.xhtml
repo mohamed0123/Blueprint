@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Login Form Design</title>
+	<!-- <link rel="stylesheet" type="text/css" href="resoures/style.css"> -->
+
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:body>
+		<div class="loginbox">
+
+
+			<div>
+				<p:graphicImage value="/resources/images/avatar.png" class="avatar" />
+			</div>
+
+
+			<h1>Login Here</h1>
+			<h:form id="form">
+				<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+				<p>Username</p>
+				<p:inputText type="text" name="" required="true"
+					value="#{userLoginViewBean.username}" placeholder="Enter Username" />
+				<p>Password</p>
+				<p:inputText type="password" name="" required="true"
+					value="#{userLoginViewBean.password}" placeholder="Enter Password" />
+				<p:commandButton type="submit" name="" value="Login" update="growl"
+					actionListener="#{userLoginViewBean.login}"
+					 
+					/>
+<!-- oncomplete="handleLoginRequest(xhr, status, args)" -->
+				<br />
+				<a href="#">Lost your password?</a>
+				<br />
+				<a href="#">Don't have an account?</a>
+			</h:form>
+
+		</div>
+	</h:body>
+</h:head>
+</html>

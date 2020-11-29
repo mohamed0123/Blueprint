@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+ 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  	>
+
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <title>Stage Machine Edit View</title>
+    <style type="text/css">
+        .updateBtnStyle {
+        	width: 80px !important;        	
+        }
+    </style>
+</h:head>
+<h:body><h:panelGroup id="includedContent10" style="display:block"></h:panelGroup>
+<p:growl id="msgs" sticky="true"  />
+ <p:messages showDetail="true" />
+        <h:form id="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <h2 style="text-align: center" class="col-sm-6">Edit Stage Machine Record</h2>
+            </div>
+            <hr/>
+            
+             	<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Machine Name:</h:outputLabel>
+			<div class="col-sm-4">
+
+				<p:selectOneMenu id="machine-Name" value="#{editStageMachineRecordObj.mId}"
+					style="width:440px">
+					<f:selectItem itemLabel="#{editStageMachineRecordObj.mName}" itemValue="#{editStageMachineRecordObj.mId}" />
+					<f:selectItems value="#{stageMachineBean.sListFromDB}" var="val"
+						itemLabel="#{val.name}" itemValue="#{val.id}" />
+
+				</p:selectOneMenu>
+
+
+			</div>
+		</div>
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Stage Name:</h:outputLabel>
+			<div class="col-sm-4">
+
+				<p:selectOneMenu id="stage-Name" value="#{editStageMachineRecordObj.sId}"
+					style="width:440px">
+					<f:selectItem itemLabel="#{editStageMachineRecordObj.stageName}" itemValue="#{editStageMachineRecordObj.sId}" />
+					<f:selectItems value="#{stageMachineBean.sListFromDB}" var="val"
+						itemLabel="#{val.name}" itemValue="#{val.id}" />
+
+				</p:selectOneMenu>
+
+
+			</div>
+		</div>
+             
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <h:commandButton value="Update" action="#{stageMachineBean.updateDetails(editStageMachineRecordObj)}" update="msg" class="btn btn-primary updateBtnStyle" />
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+ 
+<script type="text/javascript">
+	//<![CDATA[
+	$(function() {
+		$("#includedContent10").load("/SewingLastISA/faces/Home.xhtml");
+	});
+	//]]>
+</script>
+    
+</html>

@@ -1,0 +1,53 @@
+190519 19:56:12 [Note] Plugin 'FEDERATED' is disabled.
+190519 19:56:12 InnoDB: The InnoDB memory heap is disabled
+190519 19:56:12 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+190519 19:56:12 InnoDB: Compressed tables use zlib 1.2.3
+190519 19:56:12 InnoDB: Initializing buffer pool, size = 128.0M
+190519 19:56:12 InnoDB: Completed initialization of buffer pool
+190519 19:56:12 InnoDB: Error: tablespace size must be at least 10 MB
+190519 19:56:12 [ERROR] Plugin 'InnoDB' init function returned error.
+190519 19:56:12 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'events_waits_current' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'events_waits_history' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'events_waits_history_long' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'setup_consumers' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'setup_instruments' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'setup_timers' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'performance_timers' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'threads' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'events_waits_summary_by_thread_by_event_name' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'events_waits_summary_by_instance' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'events_waits_summary_global_by_event_name' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'file_summary_by_event_name' has the wrong structure
+190519 19:56:13 [ERROR] Native table 'performance_schema'.'file_summary_by_instance' has the wrong structure
+190519 19:56:14 [ERROR] Native table 'performance_schema'.'mutex_instances' has the wrong structure
+190519 19:56:14 [ERROR] Native table 'performance_schema'.'rwlock_instances' has the wrong structure
+190519 19:56:14 [ERROR] Native table 'performance_schema'.'cond_instances' has the wrong structure
+190519 19:56:14 [ERROR] Native table 'performance_schema'.'file_instances' has the wrong structure
+190519 19:56:14 [Note] Event Scheduler: Loaded 0 events
+190519 19:56:14 [Note] D:\Elqady\Portable.Mysql.5.5.13-Very.Small\bin\mysqld.exe: ready for connections.
+Version: '5.5.13'  socket: ''  port: 3306  MySQL Community Server (GPL)
+190521 22:10:18 [Note] Plugin 'FEDERATED' is disabled.
+190521 22:10:18 InnoDB: The InnoDB memory heap is disabled
+190521 22:10:18 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+190521 22:10:18 InnoDB: Compressed tables use zlib 1.2.3
+190521 22:10:18 InnoDB: Initializing buffer pool, size = 128.0M
+190521 22:10:18 InnoDB: Completed initialization of buffer pool
+190521 22:10:18 InnoDB: Error: tablespace size must be at least 10 MB
+190521 22:10:18 [ERROR] Plugin 'InnoDB' init function returned error.
+190521 22:10:18 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+190521 22:53:20 [Note] Plugin 'FEDERATED' is disabled.
+190521 22:53:20 InnoDB: The InnoDB memory heap is disabled
+190521 22:53:20 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+190521 22:53:20 InnoDB: Compressed tables use zlib 1.2.3
+190521 22:53:20 InnoDB: Initializing buffer pool, size = 128.0M
+190521 22:53:20 InnoDB: Completed initialization of buffer pool
+190521 22:53:20 InnoDB: Error: tablespace size must be at least 10 MB
+190521 22:53:20 [ERROR] Plugin 'InnoDB' init function returned error.
+190521 22:53:20 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+190521 22:53:20 [ERROR] Can't start server: Bind on TCP/IP port: No such file or directory
+190521 22:53:20 [ERROR] Do you already have another mysqld server running on port: 3306 ?
+190521 22:53:20 [ERROR] Aborting
+
+190521 22:53:20 [Note] D:\Elqady\Portable.Mysql.5.5.13-Very.Small\bin\mysqld.exe: Shutdown complete
+

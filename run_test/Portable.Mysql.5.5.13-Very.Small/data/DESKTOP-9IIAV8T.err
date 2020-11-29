@@ -1,0 +1,33 @@
+190911 22:37:05 [Note] Plugin 'FEDERATED' is disabled.
+190911 22:37:05 InnoDB: The InnoDB memory heap is disabled
+190911 22:37:05 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+190911 22:37:05 InnoDB: Compressed tables use zlib 1.2.3
+190911 22:37:05 InnoDB: Initializing buffer pool, size = 128.0M
+190911 22:37:05 InnoDB: Completed initialization of buffer pool
+190911 22:37:05 InnoDB: Error: tablespace size must be at least 10 MB
+190911 22:37:05 [ERROR] Plugin 'InnoDB' init function returned error.
+190911 22:37:05 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+190911 22:46:39 [Note] Plugin 'FEDERATED' is disabled.
+190911 22:46:39 InnoDB: The InnoDB memory heap is disabled
+190911 22:46:39 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+190911 22:46:39 InnoDB: Compressed tables use zlib 1.2.3
+190911 22:46:39 InnoDB: Initializing buffer pool, size = 128.0M
+190911 22:46:39 InnoDB: Completed initialization of buffer pool
+190911 22:46:39 InnoDB: Error: tablespace size must be at least 10 MB
+190911 22:46:39 [ERROR] Plugin 'InnoDB' init function returned error.
+190911 22:46:39 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+190911 22:46:39 [ERROR] Can't start server: Bind on TCP/IP port: No such file or directory
+190911 22:46:39 [ERROR] Do you already have another mysqld server running on port: 3306 ?
+190911 22:46:39 [ERROR] Aborting
+
+190911 22:46:39 [Note] D:\elkady\run_test\Portable.Mysql.5.5.13-Very.Small\bin\mysqld.exe: Shutdown complete
+
+190915 22:52:38 [Note] Plugin 'FEDERATED' is disabled.
+190915 22:52:38 InnoDB: The InnoDB memory heap is disabled
+190915 22:52:38 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+190915 22:52:38 InnoDB: Compressed tables use zlib 1.2.3
+190915 22:52:38 InnoDB: Initializing buffer pool, size = 128.0M
+190915 22:52:38 InnoDB: Completed initialization of buffer pool
+190915 22:52:38 InnoDB: Error: tablespace size must be at least 10 MB
+190915 22:52:38 [ERROR] Plugin 'InnoDB' init function returned error.
+190915 22:52:38 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.

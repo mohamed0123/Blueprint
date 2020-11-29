@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<title>Stage View</title>
+	<style type="text/css">
+.btnWidth {
+	width: 80px;
+}
+</style>
+</h:head>
+<h:body>
+
+	<h:panelGroup id="includedContent12" style="display:block"></h:panelGroup>
+
+	<p:growl id="msgs" sticky="true" />
+
+	<h:form class="form-horizontal">
+		<div class="form-group">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<h2>Create Stage Record</h2>
+			</div>
+		</div>
+
+
+		<hr />
+
+
+		<div class="form-group">
+			<h:outputLabel for="stage-name" class="control-label col-sm-4">Stage Name:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-name" minlength="1" value="#{stageBean.name}"
+					required="true" requiredMessage="Stage name is required"
+					class="form-control" validatorMessage="Stage name is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Time in Sec:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-time_sec" value="#{stageBean.timeSec}"
+					onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+					required="true" requiredMessage="Time Sec is required"
+					class="form-control" validatorMessage="Stage Code is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Production 100:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-production100"
+					value="#{stageBean.production100}" required="true"
+					onkeypress="return isNumberKey(event)"
+					requiredMessage="No. Of Stage is required" class="form-control"
+					validatorMessage="Only Decimal Numbers">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Production 80:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-production80"
+					value="#{stageBean.production80}" required="true"
+					onkeypress="return isNumberKey(event)"
+					requiredMessage="No. Of Stage is required" class="form-control"
+					validatorMessage="Only Decimal Numbers">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Price per item:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-price-of-items"
+					value="#{stageBean.priceOfItem}" required="true"
+					onkeypress="return isNumberKey(event)"
+					requiredMessage="No. Of Stage is required" class="form-control"
+					validatorMessage="Only Decimal Numbers">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Notes :</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-notes" value="#{stageBean.notes}"
+					required="true" requiredMessage="Notes is required"
+					class="form-control">
+
+				</h:inputText>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div class="col-sm-2">
+					<h:commandButton value="Save" update="msg"
+						action="#{stageBean.saveDetails(stageBean)}"
+						class="btn btn-success btnWidth" />
+				</div>
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2">
+					<h:link outcome="stagesList" value="View Stage Record List"
+						class="btn btn-primary" />
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+	<h:form id="myForm2">
+		<div class="form-group">
+			<h:panelGrid id="pg1" columns="2" cellpadding="5">
+				<h:dataTable value="#{stageBean.items}" var="item">
+					<h:column>
+
+						<h:selectOneMenu id="employee-Name" value="#{item.id}"
+							class="form-control">
+
+							<f:selectItem class="form-control"
+								itemLabel="#{emMachineBean.emName}"
+								itemValue="#{emMachineBean.id}" />
+
+ 
+							<f:selectItems value="#{emMachineBean.emListFromDB}" var="val"
+								class="form-control" itemLabel="#{val.name}"
+								itemValue="#{val.id}" />
+								
+								
+						</h:selectOneMenu>
+					</h:column>
+					<h:column>
+						<h:commandButton value="-" class="btn btn-warning btn-sm"
+							action="#{stageBean.remove(item)}" />
+					</h:column>
+				</h:dataTable>
+				<h:commandButton value="+" class="btn btn-primary btn-sm"
+					action="#{stageBean.add()}">
+					<f:ajax execute="@form" render="myForm2" />
+				</h:commandButton>
+			</h:panelGrid>
+		</div>
+
+
+		<h:commandButton value="Save items" update="msg"
+			action="#{stageBean.save()}" class="btn btn-success btnWidth" />
+	</h:form>
+
+
+
+</h:body>
+<script>
+//<![CDATA[
+       function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+   	//]]>
+    </script>
+
+
+
+</html>

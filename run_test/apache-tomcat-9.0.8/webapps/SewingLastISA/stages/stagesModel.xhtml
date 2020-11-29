@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="datatables.min.css" />
+	<h:outputStylesheet library="css" name="drag.and.drop.css" />
+	<script type="text/javascript"
+		src="/SewingLastISA/faces/resources/js/datatables.min.js"></script>
+
+	<style type="text/css">
+.customFooter{
+background: #68BB59;
+ background-color:  #68BB59;
+height: 30px;
+position: relative;
+}
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left:40%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.tableUpdated {
+	width: 90% !important;
+	margin: 17px 58px 0 !important;
+}
+
+.btnSpace {
+	margin: 17px;
+}
+</style>
+
+	<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: left !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+
+	<style>
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+.ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #990a00;
+	/* width: 60%; */
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li
+
+
+
+ 
+
+
+a
+
+
+
+
+ 
+
+
+:hover
+
+
+
+
+ 
+
+
+:not
+
+
+
+
+ 
+
+
+ (.active ) {background-color #111;
+	
+}
+
+.active {
+	background-color: #4CAF50;
+}
+
+.active0 {
+	background-color: #264026;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+</style>
+
+
+
+
+	<title>Stage View</title>
+
+</h:head>
+<h:body>
+	<p:inputText rendered="false" />
+	<ul id="ulCategory">
+		<li><a id="home" href="/SewingLastISA/faces/MainPage.xhtml"
+			class="anchorGroup">Home</a></li>
+		<li><a href="/SewingLastISA/faces/employee/employeesList.xhtml"
+			class="anchorGroup ">Employee View</a></li>
+
+		<li><a href="/SewingLastISA/faces/machine/machinesList.xhtml"
+			class="anchorGroup">Machine View</a></li>
+		<li><a href="/SewingLastISA/faces/stages/stagesList.xhtml"
+			class="anchorGroup">Stages</a></li>
+			
+			<li><a href="/SewingLastISA/faces/stages/stagesModel.xhtml"
+			class="anchorGroup active">Stages Model</a></li>	
+		
+
+	</ul>
+
+ 
+	 
+
+	<p:growl id="msgs" sticky="true" />
+	<center>
+		<h2>
+		<!-- 	<h:outputText value="#{stageBean.title}" /> -->
+		<h:graphicImage value="/resources/images/ya2a.png" styleClass="imgCircular"/>
+		
+<h:graphicImage value="/resources/images/asawer.png" styleClass="imgCircular"/>
+<br/>
+<h:graphicImage value="/resources/images/kom.png" styleClass="imgCircular"/>
+
+<h:graphicImage value="/resources/images/back.png" styleClass="imgCircular"/>
+<br />
+<h:graphicImage value="/resources/images/chest.png" styleClass="imgCircular"/>
+<br />
+<h:graphicImage value="/resources/images/Asemble.png" styleClass="imgCircular"/>
+		</h2>
+	</center>
+
+ 
+	
+
+	 
+
+</h:body>
+
+<script>
+//<![CDATA[
+       function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+   	//]]>
+    </script>
+<script>
+//<![CDATA[
+      $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+   	//]]>
+    </script>
+<script>
+//<![CDATA[
+      $(function() {
+   $("li").click(function() {
+      // remove classes from all
+      $("li").removeClass("active0");
+      // add class to the one we clicked
+      $(this).addClass("active0");
+   });
+});
+   	//]]>
+    </script>
+    
+    
+    
+    <script>
+//<![CDATA[
+     async  function onclickFunctionTitle(title , id)
+       {
+    	   var inputHiden = document.getElementById('hiddenForm:titleBean');
+    	   inputHiden.setAttribute('value' , title);
+    	   
+    	   var inputHidenId = document.getElementById('hiddenForm:titleBeanId')
+    	   inputHidenId.setAttribute('value' , id);
+    	   
+    	   var myHiddenButtun = document.getElementById('hiddenForm:changeBeanButton')
+    	   await  myHiddenButtun.click();
+    	   setInterval(function(){ if(document.readyState == 'complete') { return ; } }, 50); 
+    	   console.log(id);
+    	  
+
+    	   var setActive = document.getElementById(id);
+    	   setActive.className += " , active0"
+       }
+   	//]]>
+    </script>
+    
+    
+        <script>
+//<![CDATA[
+     async  function setActive( id)
+       {
+ 
+    	   var setActive = document.getElementById(id);
+    	   setActive.className += " , active0"
+       }
+   	//]]>
+    </script>
+    
+            <script>
+//<![CDATA[
+     async  function closeDialog( )
+       {
+ 
+    	   var dialog = document.getElementById('myDialog');
+    	   var closButtun = dialog.querySelectorAll('a[href="#"][role="button"]');
+    	   closButtun[0].click();
+       }
+   	//]]>
+    </script>
+    
+</html>

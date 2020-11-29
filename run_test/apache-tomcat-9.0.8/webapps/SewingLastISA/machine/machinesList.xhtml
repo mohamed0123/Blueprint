@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+<h:outputStylesheet library="css" name="drag.and.drop.css" />
+<!--  	<script type="text/javascript"  src="/SewingLastISA/faces/resources/js/popper.js"></script>
+	<script  type="text/javascript"  src="/SewingLastISA/faces/resources/js/bootstrap.js"></script>
+	<script type="text/javascript"  src="/SewingLastISA/faces/resources/js/bootstrap-confirmation.js"></script> -->
+
+	<title>Machine View</title>
+	<style type="text/css">
+.tableUpdated {
+	width: 90% !important;
+	margin: 17px 58px 0 !important;
+}
+
+.btnSpace {
+	margin: 17px;
+}
+</style>
+
+	<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: left !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+<style>
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li
+
+ 
+a
+
+
+ 
+:hover
+
+
+ 
+:not
+
+
+ 
+(
+.active
+
+ 
+)
+{
+background-color
+
+ 
+#111
+
+ 
+;
+}
+.active {
+	background-color: #4CAF50;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+</style>
+</h:head>
+<h:body>
+<p:inputText rendered="false" />
+<ul id="ulCategory">
+		<li><a id="home" href="/SewingLastISA/faces/MainPage.xhtml"
+			class="anchorGroup">Home</a></li>
+		<li><a href="/SewingLastISA/faces/employee/employeesList.xhtml"
+			class="anchorGroup ">Employee View</a></li>
+	
+		<li><a href="/SewingLastISA/faces/machine/machinesList.xhtml"
+			class="anchorGroup active">Machine View</a></li>
+		<li><a href="/SewingLastISA/faces/stages/stagesList.xhtml"
+			class="anchorGroup">Stages</a></li>
+<li><a href="/SewingLastISA/faces/stages/stagesModel.xhtml"
+			class="anchorGroup">Stages Model</a></li>	
+
+	</ul>
+<p:growl id="msgs" sticky="true"  />
+	<center>
+		<h2>
+			<h:outputText value="Machine Records" />
+		</h2>
+	</center>
+	
+	
+  	<p:dialog id="myDialog" header="Stage Records" widgetVar="dlg2"
+		modal="true" width="60%">
+    <h:form id="createMachineForm" class="form-horizontal">
+   
+        <hr/>
+           <div class="form-group"  style="display: none;">
+            <h:outputLabel for="machine-id" class="control-label col-sm-4" >Id:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="machine-id"  value="#{machineBean.id}"  class="form-control" >
+                    
+                </h:inputText>
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <h:outputLabel for="machine-name" class="control-label col-sm-4" >Machine Name:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="machine-name" minlength="1" value="#{machineBean.name}" required="true"  requiredMessage="Machine name is required"	 class="form-control" validatorMessage="Machine name is required">
+                    <f:validateRequired   />
+                </h:inputText>
+            </div>
+        </div>
+        
+          <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Machine Code:</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="machine-code" value="#{machineBean.code}" required="true"  requiredMessage="Machine code is required"	 class="form-control" validatorMessage="Machine Code is required">
+                    <f:validateRequired />
+                </h:inputText>
+            </div>
+        </div>
+         
+         
+        <div class="form-group">
+            <h:outputLabel   class="control-label col-sm-4">Category:</h:outputLabel>
+            <div class="col-sm-4">
+ 
+
+				<h:selectOneMenu id="machineCategoryCreate" value="#{machineBean.category}"  class="form-control" 
+					 >
+ 
+					<f:selectItems  value="#{machineBean.categoryList}" var="val"  class="form-control" 
+						itemLabel="#{val}" itemValue="#{val}" />
+
+				</h:selectOneMenu>
+
+
+	 
+                
+            </div>
+        </div>
+         
+        <div class="form-group">
+            <h:outputLabel  class="control-label col-sm-4">Count  :</h:outputLabel>
+            <div class="col-sm-4">
+                <h:inputText id="machine-count" value="#{machineBean.count}" required="true"  
+                onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+                requiredMessage="Machine name is required"	 class="form-control" validatorMessage="Only Numbers">
+                    <f:validateRequired pattern="[0-9]"/>
+                </h:inputText>
+            </div>
+        </div>
+         
+        
+        <div class="form-group">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="col-sm-2">
+                	<p:commandButton value="Save" update="msgs createMachineForm form"
+					action="#{machineBean.saveDetails(machineBean)}"
+					class="btn btn-success" >
+					 <!-- <f:ajax execute="@form" render="form myForm1 myForm2"></f:ajax> -->
+					</p:commandButton>
+               
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-2">
+					<h:commandButton value="Reset" type="reset"
+						class="btn btn-warning" />
+				</div>
+                
+            </div>
+        </div>
+    </h:form>
+	</p:dialog>
+	
+	<h:form id="form">
+							<h:commandButton id="test" action="#{machineBean.download()}"
+				styleClass="iconXlsx"  >
+			</h:commandButton>
+ <br />
+		<h:dataTable id="machineTable" binding="#{table}"
+			value="#{machineBean.listFromDB}"
+			filteredValue="#{machineBean.listFromDB}"
+			emptyMessage="No machines found with given criteria"
+			widgetVar="myVarTable" var="myVar"
+			class="table table-striped table-hover table-bordered tableUpdated">
+
+			<!--    <f:facet name="header">
+            <h:outputPanel>
+                <h:outputText value="" />
+                <h:inputText id="globalFilter" onkeyup="PF('myVarTable').filter()" style="width:250px" placeholder="Enter keyword"/>
+            </h:outputPanel>
+        </f:facet>
+        -->
+			<h:column filterMatchMode="contains">
+
+
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{table.rowIndex + 1}" />
+			</h:column>
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Machine Name</f:facet>
+				<h:outputText value="#{myVar.name}" />
+			</h:column>
+			
+				<h:column filterMatchMode="contains">
+				<f:facet name="header">Machine Code</f:facet>
+				<h:outputText value="#{myVar.code}" />
+			</h:column>
+			
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Category</f:facet>
+				<h:outputText value="#{myVar.category}" />
+			</h:column>
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Count</f:facet>
+				<h:outputText value="#{myVar.count}" />
+			</h:column>
+			<h:column filterMatchMode="contains">
+				<f:facet name="header">Store Date</f:facet>
+				<h:outputText value="#{myVar.storeDate}" />
+			</h:column>
+
+			<h:column  >
+				<f:facet name="header">Update</f:facet>
+				<h:commandButton action="#{machineBean.editRecord(myVar.id)}"
+					value="Update" class="btn btn-primary" />
+			</h:column>
+			<h:column  >
+				<f:facet name="header">Delete</f:facet>
+				<h:commandButton action="#{machineBean.deleteRecord(myVar.id)}"
+					data-toggle="confirmation" value="Delete" class="btn btn-danger" />
+			</h:column>
+			
+	<!--  		<h:column filterMatchMode="contains">
+			
+			<button class="btn btn-danger" data-toggle="confirmation" data-singleton="true">Confirmation</button>
+			 
+			</h:column>
+			-->
+			
+		</h:dataTable>
+	  		<br />
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<h:commandButton value="Add New Item"
+				action="#{machineBean.addRecord()}" class="btn btn-success btn-block" >
+				<f:ajax />
+				<!-- <f:ajax execute="@form" render="myDialog" /> -->
+				</h:commandButton>
+		</div>
+	</h:form>
+	
+
+</h:body>
+		 
+<script type="text/javascript">
+	//<![CDATA[
+	$(function() {
+		$("#includedContent8").load("/SewingLastISA/faces/Home.xhtml");
+	});
+	//]]>
+</script>
+	
+	  
+   <script>
+//<![CDATA[
+     async  function closeDialog( )
+       {
+ 
+    	   var dialog = document.getElementById('myDialog');
+    	   var closButtun = dialog.querySelectorAll('a[href="#"][role="button"]');
+    	   closButtun[0].click();
+       }
+   	//]]>
+    </script>
+    
+</html>

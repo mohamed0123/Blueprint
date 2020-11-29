@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+ 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  	>
+
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <title>Machine Edit View</title>
+    <style type="text/css">
+        .updateBtnStyle {
+        	width: 80px !important;        	
+        }
+    </style>
+</h:head>
+<h:body><h:panelGroup id="includedContent7" style="display:block"></h:panelGroup>
+<p:growl id="msgs" sticky="true"  />
+        <h:form id="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <h2 style="text-align: center" class="col-sm-4">Edit Machine Record</h2>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <h:outputLabel for="machine-name" class="control-label col-sm-2">Machine Name:</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="machine-name" value="#{editMachineRecordObj.name}"  required="true"  requiredMessage="Machine name is required"	 class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="machine-code" class="control-label col-sm-2">Machine Code:</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="machine-code" value="#{editMachineRecordObj.code}"  required="true"  requiredMessage="Machine code is required"	 class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="machine-categeroy" class="control-label col-sm-2">Category:</h:outputLabel>
+                <div class="col-sm-4">
+                         <p:selectOneMenu id="machine-categeroy" value="#{editMachineRecordObj.category}" style="width:440px">
+                       <f:selectItems value="#{machineBean.categoryList}" />
+                
+        </p:selectOneMenu>
+    
+                    
+                </div>
+            </div>
+  
+              <div class="form-group">
+                <h:outputLabel for="machine-count" class="control-label col-sm-2">Count:</h:outputLabel>
+                <div class="col-sm-4">
+                    <h:inputText id="machine-count"  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" value="#{editMachineRecordObj.count}" class="form-control"/>
+                </div>
+            </div>
+  
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <h:commandButton value="Update" action="#{machineBean.updateDetails(editMachineRecordObj)}" update="msg" class="btn btn-primary updateBtnStyle" />
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+ 
+<script type="text/javascript">
+	//<![CDATA[
+	$(function() {
+		$("#includedContent7").load("/SewingLastISA/faces/Home.xhtml");
+	});
+	//]]>
+</script>
+    
+</html>

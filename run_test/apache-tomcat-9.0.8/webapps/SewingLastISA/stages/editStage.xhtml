@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+ 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+ 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  	>
+
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <title>Stage Edit View</title>
+    <style type="text/css">
+        .updateBtnStyle {
+        	width: 80px !important;        	
+        }
+    </style>
+</h:head>
+<h:body><h:panelGroup id="includedContent13" style="display:block"></h:panelGroup>
+<p:growl id="msgs" sticky="true"  />
+        <h:form id="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <h2 style="text-align: center" class="col-sm-4">Edit Stage Record</h2>
+            </div>
+            <hr/>
+             
+		<div class="form-group">
+			<h:outputLabel for="stage-name" class="control-label col-sm-4">Stage Name:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-name" minlength="1" value="#{editStageRecordObj.name}"
+					required="true" requiredMessage="Stage name is required"
+					class="form-control" validatorMessage="Stage name is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Time in Sec:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-time_sec" value="#{editStageRecordObj.timeSec}"
+					required="true" requiredMessage="Time Sec is required"  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+					class="form-control" validatorMessage="Stage Code is required">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Production 100:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-production100"
+					value="#{editStageRecordObj.production100}" required="true"
+					onkeypress="return isNumberKey(event)"
+					requiredMessage="No. Of Stage is required" class="form-control"
+					validatorMessage="Only Decimal Numbers">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Production 80:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-production80"
+					value="#{editStageRecordObj.production80}" required="true"
+					onkeypress="return isNumberKey(event)"
+					requiredMessage="No. Of Stage is required" class="form-control"
+					validatorMessage="Only Decimal Numbers">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">No. Of Machine  :</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-no-of-machines"
+					value="#{editStageRecordObj.noOfMachines}" required="true"
+					onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+					requiredMessage="No. Of Machines is required" class="form-control"
+					validatorMessage="Only Numbers">
+					<f:validateRequired pattern="[0-9]" />
+				</h:inputText>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Price per item:</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-price-of-items"
+					value="#{editStageRecordObj.priceOfItem}" required="true"
+					onkeypress="return isNumberKey(event)"
+					requiredMessage="No. Of Stage is required" class="form-control"
+					validatorMessage="Only Decimal Numbers">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<h:outputLabel class="control-label col-sm-4">Notes :</h:outputLabel>
+			<div class="col-sm-4">
+				<h:inputText id="stage-notes" value="#{editStageRecordObj.notes}"
+					required="true" requiredMessage="Notes is required"
+					class="form-control">
+
+				</h:inputText>
+			</div>
+		</div>
+             
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <h:commandButton value="Update" action="#{stageBean.updateDetails(editStageRecordObj)}" update="msg" class="btn btn-primary updateBtnStyle" />
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+    
+    <script  >
+//<![CDATA[
+       function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+   	//]]>
+    </script>
+ 
+<script type="text/javascript">
+	//<![CDATA[
+	$(function() {
+		$("#includedContent13").load("/SewingLastISA/faces/Home.xhtml");
+	});
+	//]]>
+</script>
+    
+</html>
